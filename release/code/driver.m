@@ -18,7 +18,7 @@ filterBank = createFilterBank();
 % % % % dictionary_ans = getFilterBankAndDictionary(img_name_char);      
 % % % [filterBank, dictionary] = getFilterBankAndDictionary(img_name_char);
 computeDictionary();
-load("dictionary.mat");
+load('dictionary.mat');
 %% Run Q1.3
 [wordMap] = getVisualWords(img, filterBank, dictionary);
 imagesc(wordMap)
