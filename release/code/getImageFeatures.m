@@ -7,9 +7,9 @@ function [h] = getImageFeatures(wordMap, dictionarySize)
 %   h: vector of histogram of visual words of size dictionarySize (l1-normalized, ie. sum(h(:)) == 1)
  
     h = histogram(wordMap(:), 1:dictionarySize);
-    normalized_hist = normc(h);
-    normalized_hist  = h /normalized_hist  ;
-    normalized_hist_transpose = normalized_hist';
-    h = normalized_hist_transpose;
+%     normalized_hist = normc(h);
+%     normalized_hist  = h /normalized_hist  ;
+%     normalized_hist_transpose = normalized_hist';
+%     h = normalized_hist_transpose;
 % 	assert(numel(h) == dictionarySize);
 end

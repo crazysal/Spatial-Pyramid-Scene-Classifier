@@ -8,8 +8,8 @@ function [filterBank, dictionary] = getFilterBankAndDictionary(impath)
 %   dictionary: a dictionary of visual words from the filter responses using k-means.
 
 filterBank  = createFilterBank();
-K=100;%number of clusters
-alpha=70; %for sampling apha pixels from image    
+K=300;%number of clusters
+alpha=200; %for sampling apha pixels from image    
     for ii=1:length(impath)    
         img = imread(impath{ii});        
         [h,w,z] = size(img(:,:,:));
@@ -29,7 +29,7 @@ alpha=70; %for sampling apha pixels from image
     
 %Resizing filter responses from a 4d matrix to (h*w)X3f matrix 
 patch = reshape(filtered_patch, size(filtered_patch,1)* size(filtered_patch,2) * size(filtered_patch,4), size(filtered_patch,3));
-[~,dictionary]=kmeans(patch,K,'EmptyAction','drop');
+[~,dictionary]=kmeans(patch,K,'EmptyAction','drop', 'Options',statset('UseParallel',1),'Display','iter' );
 end
 
 
