@@ -10,22 +10,22 @@ function [filterResponses] = extractFilterResponses(img, filterBank)
 
 % TODO Implement your code here
 
-%final = "final_filtered_";
+
 [x,y,z] = size(img);
 desired_z_len = length(filterBank)*3;
 %add code to handle greyscale images  
-final_filter = zeros(x,y,desired_z_len );
-img = im2double(img);
-[l,a,b] = RGB2Lab(img); 
-    for ii = 1: numel(filterBank)-2
-        convolutedl = imfilter(l, filterBank{ii}, 'replicate');
-        final_filter(:,:,ii*3) = reshape(convolutedl,x,y,[]);          
-        convoluteda = imfilter(a, filterBank{ii}, 'replicate');
-        final_filter(:,:,ii*3+1) = reshape(convoluteda,x,y,[]);          
-        convolutedb = imfilter(b, filterBank{ii}, 'replicate');
-        final_filter(:,:,ii*3+2) = reshape(convolutedb,x,y, []);          
-    end    
-filterResponses  = final_filter; 
+filterR = zeros(x,y,desired_z_len );
+
+    if (size(img, 3) == 1)
+        img = cat(3, img, img, img);
+    end
+img = im2double(img);    
+img = RGB2Lab(img);
+    for i = 1 : size(filterBank)
+        filterR = cat(3, filterR, imfilter(img, filterBank{i}, 'replicate', 'same', 'conv'));
+    end
+filterResponses = filterR(:,:,61:120);
 end
+
  
  

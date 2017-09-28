@@ -6,22 +6,14 @@ function [wordMap] = getVisualWords(img, filterBank, dictionary)
 % 	filterBank: a cell array of N filters
 % Output:
 %   wordMap: WordMap matrix of same size as the input image (h, w)
-% 
-img = imread('../data/testy/4.jpg');
-% filterBank = createFilterBank();s
-  
-%Applying filter on image 
-[filtsRes]= extractFilterResponses(img, filterBank);
-[h,w,~] = size(filtsRes);
-%Resizing filter responses from a 4d matrix to (h*w)X3f matrix 
-filtsResponse = reshape(filtsRes, size(filtsRes,1)*size(filtsRes,2), size(filtsRes,3));
 
-the_pdist_2 = pdist2(dictionary,filtsResponse);
-min_pdist = min(the_pdist_2);
-%get the value of dictionary
-for i = 1:length(min_pdist)
-    wordMap(i) = find(the_pdist_2(:,i) == min_pdist(i));
-end
-%reshape wordMap to shape if initial image
-wordMap = reshape(wordMap, h, w);
+    % TODO Implement your code here
+    [h,w, z] = size(img); 
+    responses = extractFilterResponses(img, filterBank);    % H x W x 3F
+    responses = reshape(responses, h*w, size(responses, 3));   % h*w x 3F
+    wordMap = pdist2(responses, dictionary);    % h*w x 100    
+    % find the closest word and its indice for each pixel
+    [~, wordMap] = min(wordMap, [], 2);    % 
+    wordMap = reshape(wordMap, h, w, size(responses, 3));
+    imagesc(wordMap);
 end
