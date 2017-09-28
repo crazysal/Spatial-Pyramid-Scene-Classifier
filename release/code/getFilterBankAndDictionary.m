@@ -11,7 +11,8 @@ filterBank  = createFilterBank();
 K=300;%number of clusters
 alpha=200; %for sampling apha pixels from image    
     for ii=1:length(impath)    
-        img = imread(impath{ii});        
+disp (ii);        
+img = imread(impath{ii});        
         [h,w,z] = size(img(:,:,:));
         if z == 1
             img = cat(3, img, img, img);
